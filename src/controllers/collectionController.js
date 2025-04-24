@@ -40,7 +40,7 @@ class CollectionController {
         releaseYear,
       } = req.body;
 
-      // Verifica se todos os campos do personagem foram fornecidos
+      // Verifica se todos os campos da coleção foram fornecidos
       if (
         !name ||
         !releaseYear
@@ -50,15 +50,15 @@ class CollectionController {
           .json({ error: "Todos os campos são obrigatórios" });
       }
 
-      // Criar o novo personagem
+      // Criar o nova coleção
       const newCollection = await collectionModel.create(
         name,
         description,
-        releaseYear
+        releaseYear,
       );
 
       if (!newCollection) {
-        return res.status(400).json({ error: "Erro ao criar personagem" });
+        return res.status(400).json({ error: "Erro ao criar coleção" });
       }
 
       res.status(201).json({
