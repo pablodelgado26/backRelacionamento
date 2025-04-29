@@ -2,9 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import cors from "cors"; // Importa o middleware CORS
 
-import collectionRouter from "./routes/collectionRoutes.js";
-import cardRouter from "./routes/cardRoutes.js";
-import authRouter from "./routes/auth.routes.js";
+import router from "./routes/index.routes.js";
 
 config(); // Carrega variáveis de ambiente do arquivo .env
 const port = process.env.PORT || 4001; // Define a porta do servidor
@@ -15,14 +13,8 @@ app.use(cors()); // Habilita CORS para todas as rotas
 
 app.use(express.json()); // Parse de JSON
 
-app.use("/colecoes", collectionRouter); // Usar as rotas de coleções
-app.use("/cartas", cardRouter); // Usar as rotas de cartas
-app.use("/auth", authRouter); // Usar as rotas de autenticação
+app.use("/", router)
 
-// Rota base para verificar se o servidor está rodando
-app.get("/", (req, res) => {
-  res.json({ message: "API de Coleção de Animes funcionando!" });
-});
 
 // Iniciar o servidor
 app.listen(port, () => {
