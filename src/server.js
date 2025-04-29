@@ -2,7 +2,6 @@ import express from "express";
 import { config } from "dotenv";
 import cors from "cors"; // Importa o middleware CORS
 
-import animesRouter from "./routes/animeRoutes.js";
 import collectionRouter from "./routes/collectionRoutes.js";
 import cardRouter from "./routes/cardRoutes.js";
 
@@ -15,7 +14,6 @@ app.use(cors()); // Habilita CORS para todas as rotas
 
 app.use(express.json()); // Parse de JSON
 
-app.use("/animes", animesRouter); // Usar as rotas de animes
 app.use("/colecoes", collectionRouter); // Usar as rotas de coleções
 app.use("/cartas", cardRouter); // Usar as rotas de cartas
 
