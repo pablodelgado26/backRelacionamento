@@ -12,7 +12,7 @@ const router = express.Router();
 //Rotas públicas
 router.use("/auth", authRouter);
 router.use("/collections", collectionRouter);
-router.use("cards", cardRouter);
+router.use("/cards", cardRouter);
 
 //Rotas protegidas
 router.use(authMiddleware)
