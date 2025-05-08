@@ -2,8 +2,19 @@ import prisma from "../../prisma/prisma.js";
 
 class CardModel {
   // Obter todas as cartas
-  async findAll(raridade, ataque) {
+  async findAll(raridade, ataque, pagina, limite) {
+    
+    if(Number(limite) < 1 || Number(limite) > 100) {
+      limite = 10;
+    }
+    
+    if (Number(pagina) < 1) {
+      pagina = 1;
+    }
+
     const where = {};
+
+    const skip = (Number(pagina) - 1) * Number(limite);
 
     if (raridade) {
       where.rarity = raridade;
@@ -31,6 +42,8 @@ class CardModel {
         },
         rarity: raridade,
       }, */
+      skip,
+      take: Number(limite),
       where,
       orderBy: {
         createdAt: "desc",
@@ -46,9 +59,14 @@ class CardModel {
       },
     });
 
+    const totalExibidos = cartas.length;
+    const totalGeral = await prisma.card.count({
+      where,
+    });
+
     // console.log(cartas);
 
-    return cartas;
+    return { totalExibidos, totalGeral, cartas };
   }
 
   // Obter uma carta pelo ID

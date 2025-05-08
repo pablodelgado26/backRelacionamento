@@ -7,9 +7,12 @@ class CardController {
     console.log("Raridade", raridade);
 
     const ataque = req.query.ataque;
+
+    const pagina = req.query.pagina || 1;
+    const limite = req.query.limite || 10;
     
     try {
-      const cartas = await CardModel.findAll(raridade, ataque);
+      const cartas = await CardModel.findAll(raridade, ataque, pagina, limite);
       res.json(cartas);
     } catch (error) {
       console.error("Erro ao buscar as cartas:", error);
